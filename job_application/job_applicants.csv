@@ -1,1 +1,2 @@
 name,email,applied_job_position,skills,applied_at,birthdate,application_status
+Jon Rey,jonrey@example.local,php-developer,"PHP, Laravel, CodeIgniter, MySQL, PostgreSQL, REST API, SOAP API, Payment Gateway Integration, Debugging, Performance Optimization, HTML, CSS, JavaScript, React, Security (XSS, CSRF, SQL Injection prevention), Git (GitHub, GitLab, Bitbucket), Troubleshooting, API Integration, Collaboration with Frontend Developers",2025-03-26 04:08 PM,1995-06-15,Qualified

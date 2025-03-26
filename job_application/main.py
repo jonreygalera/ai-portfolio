@@ -94,9 +94,7 @@ def storeApplicants(data):
   with open(job_applicants_database, mode='a', newline="") as file:
     writer = csv.writer(file)
     writer.writerow([
-      data["name"], data["email"], data["birthdate"],
-        data["applied_job_position"], data["applied_at"],
-        data["skills"], "In-Review"
+      data["name"], data["email"], data["applied_job_position"], data["skills"], data["applied_at"], data["birthdate"], data["application_status"]
     ])
 
 def applicationForm():
@@ -106,6 +104,7 @@ def applicationForm():
 
   applicant_data['name'] = input("Name: ")
   applicant_data['skills'] = input("Skills: ")
+  applicant_data['birthdate'] = input("Birthdate: ")
   applicant_data['email'] = input("Email: ")
   applicant_data['applied_job_position'] = selectJobPosition()
   applicant_data['applied_at'] = today.strftime("%Y-%m-%d %I:%M %p")
@@ -115,9 +114,9 @@ def applicationForm():
 def main():
   applicant_data = applicationForm()
   job_position_details = getJobPositionDetails(applicant_data['applied_job_position'])
+  applicant_data['application_status'] = aiAgent(applicant_data, job_position_details)
   storeApplicants(applicant_data)
-  ai_response = aiAgent(applicant_data, job_position_details)
 
-  print(ai_response)
+  print(applicant_data)
 
 main()
