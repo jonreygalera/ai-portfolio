@@ -1,0 +1,1738 @@
+{
+  "name": "Job Application",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.application_status }}",
+                    "rightValue": "In-Review",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "67bae4d3-ab19-4543-a818-332393fc669d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "In-Review"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fcef01ee-e205-421a-bc61-ac72093dd055",
+                    "leftValue": "={{ $json.application_status }}",
+                    "rightValue": "Not Qualified",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Not Qualified"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        700,
+        -20
+      ],
+      "id": "782195b5-be71-4bac-b128-b4930f305677",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "formTitle": "Application Form",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "First Name Last Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Skills",
+              "placeholder": "Programming, cooking",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Birthdate",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Job Position",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "administrative-staff-of"
+                  },
+                  {
+                    "option": "brazilian-im-chat-support"
+                  },
+                  {
+                    "option": "cafeteria-cook"
+                  },
+                  {
+                    "option": "content-image-specialist"
+                  },
+                  {
+                    "option": "rd-manager"
+                  },
+                  {
+                    "option": "web-designer"
+                  },
+                  {
+                    "option": "php-developer"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        -20
+      ],
+      "id": "70761417-ec91-4824-88a6-e1dc4e29c198",
+      "name": "Application Form",
+      "webhookId": "08b3a958-4294-4e49-b121-63c36e07082b"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json?.name }}",
+            "skills": "={{ $json.skills }}",
+            "email": "={{ $json.email }}",
+            "applied_at": "={{ $now.format('yyyy-MM-dd hh:mm a') }}",
+            "application_status": "={{ $if(($now.extract('year') - ($json?.birthdate).toDateTime().extract('year')) < 18, 'Not Qualified', 'In-Review') }}",
+            "birthdate": "={{ $json?.birthdate }}",
+            "applied_job_position": "={{ $json.job_position }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        -20
+      ],
+      "id": "d960efd6-81b4-4ada-9fb5-93293472f006",
+      "name": "Applicants Data",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-3.5-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1020,
+        20
+      ],
+      "id": "59ee0da6-14fa-462a-a0c3-c95a13393cda",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "6wZD45kidzNZT01e",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1482139433,
+          "mode": "list",
+          "cachedResultName": "Not Qualified",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1482139433"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $json.name }}",
+            "email": "={{ $json.email }}",
+            "applied_at": "={{ $json.applied_at }}",
+            "skills": "={{ $json.skills }}",
+            "birthdate": "={{ $json.birthdate }}",
+            "reason": "={{ $if(($now.extract('year') - $json.birthdate.toDateTime().extract('year')) < 18, 'Minor', 'Others') }}",
+            "applied_job_position": "={{ $('Applicants Data').item.json.applied_job_position }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1160,
+        360
+      ],
+      "id": "4f4b1048-6254-456e-bc4f-24605da4f79e",
+      "name": "Rejected as Minor",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "Qualified",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1b1708e8-f106-410a-a8a3-0b61beec5b4d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Qualified"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ae17c771-9372-40ba-90a0-817199c1654e",
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "Not Qualified",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Not Qualified"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1340,
+        -220
+      ],
+      "id": "a3267290-5fcd-4e00-9b75-598d73995290",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Job Positions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "job_position",
+              "lookupValue": "={{ $json.applied_job_position }}"
+            },
+            {
+              "lookupColumn": "description",
+              "lookupValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Value', ``, 'string') }}"
+            },
+            {
+              "lookupColumn": "qualifications",
+              "lookupValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        1240,
+        60
+      ],
+      "id": "44c42365-258d-48d9-b312-183b04dfa1ce",
+      "name": "Job Positions",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1482139433,
+          "mode": "list",
+          "cachedResultName": "Not Qualified",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1482139433"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('Switch').item.json.name }}",
+            "email": "={{ $('Switch').item.json.email }}",
+            "skills": "={{ $('Switch').item.json.skills }}",
+            "applied_job_position": "={{ $('Switch').item.json.applied_job_position }}",
+            "applied_at": "={{ $('Switch').item.json.applied_at }}",
+            "birthdate": "={{ $('Switch').item.json.birthdate }}",
+            "reason": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1580,
+        -40
+      ],
+      "id": "76d9469a-8ea5-41bf-988d-09a3d9f8e462",
+      "name": "Not Qualified",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1608552724,
+          "mode": "list",
+          "cachedResultName": "Qualified",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1608552724"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('Switch').item.json.name }}",
+            "email": "={{ $('Switch').item.json.email }}",
+            "skills": "={{ $('Switch').item.json.skills }}",
+            "applied_job_position": "={{ $('Switch').item.json.applied_job_position }}",
+            "applied_at": "={{ $('Switch').item.json.applied_at }}",
+            "birthdate": "={{ $('Switch').item.json.birthdate }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1840,
+        -220
+      ],
+      "id": "94b0dbc9-9c8d-46d3-b272-cbce3e5490ed",
+      "name": "Qualified",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Application Status for {{ $('Applicants Data').item.json.applied_job_position }}",
+        "emailType": "text",
+        "message": "=Thank you for applying for the {{ $('Applicants Data').item.json.applied_job_position }}. We have reviewed your application and skills in comparison to the job requirements.\n\n{{ $if($('AI Agent: Qualification Control').item.json.output == \"Qualified\", \"Congratulations! You meet the qualifications for this role. Our team will be in touch regarding the next steps.\", \"At this time, your skill set does not fully align with the job requirements. However, we encourage you to continue developing your skills and apply again in the future.\") }}\n\nWe appreciate your interest and wish you the best in your career journey.\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2460,
+        -200
+      ],
+      "id": "11f1f8b4-797a-4274-8922-1d74d94145ec",
+      "name": "Gmail",
+      "webhookId": "a7878d96-e2ac-4f1e-a30d-89e65a3eaf12",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "CNU5XUmVdo1XjEh0",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('Switch').item.json.name }}",
+            "application_status": "={{ $('AI Agent: Qualification Control').item.json.output }}",
+            "email": "={{ $('Switch').item.json.email }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1580,
+        -220
+      ],
+      "id": "b2fd10a4-2a1d-44bd-852e-63b8cdfbaeb1",
+      "name": "Applicants Data1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('Applicants Data').item.json.name }}",
+            "application_status": "={{ $('AI Agent: Qualification Control').item.json.output }}",
+            "email": "={{ $('Switch').item.json.email }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1500,
+        240
+      ],
+      "id": "907b5c4c-3c00-40b7-b573-765eab3acdef",
+      "name": "Rejected as Not Qualified",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@nmai.dev",
+        "toEmail": "={{ $('Applicants Data').item.json.email }}",
+        "subject": "=Application Status for {{ $('Applicants Data').item.json.applied_job_position }}",
+        "html": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Update on Your Job Application</title>\n</head>\n<body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\">\n    <h2 style=\"color: #007bff;\">🚀 Thank You for Applying!</h2>\n    \n    <p>Dear {{ $('Applicants Data').item.json.name }},</p>\n\n    <p>We appreciate your interest in the <strong>{{ $('Applicants Data').item.json.applied_job_position }}</strong> role. Our team has carefully reviewed your application and compared it with the job requirements.</p>\n\n    <p>\n        {{ $if($('AI Agent: Qualification Control').item.json.output == \"Qualified\", \n        \"<strong>🎉 Great news!</strong> You meet the qualifications for this role. Our team will be in touch soon with the next steps!\", \n        \"<strong>🔎 Almost there!</strong> While your skills don’t fully match this role, don’t be discouraged! Keep growing and consider applying again in the future.\") }}\n    </p>\n\n    {{ $if($('AI Agent: Qualification Control').item.json.output == \"Not Qualified\", \n    \"<p>💡 <strong>Opportunities Await:</strong> Based on your skills, here are some roles you might be a great fit for:</p><ul style='background: #f9f9f9; padding: 10px; border-left: 4px solid #007bff;'>\" + $json.output + \"</ul>\", \"\") }}\n\n    <p>✨ Keep pushing forward, and we wish you success in your career journey!</p>\n\n    <p style=\"font-weight: bold;\">Best regards, <br>The Hiring Team</p>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2460,
+        -40
+      ],
+      "id": "7beffe62-1b69-417f-a78e-d9bee15c3d88",
+      "name": "Send Email",
+      "webhookId": "72743d38-be73-4152-ae36-9bbfc1efee54",
+      "credentials": {
+        "smtp": {
+          "id": "qsxyzB595Q3CbghK",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-3.5-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1840,
+        220
+      ],
+      "id": "ed403065-4ad4-4bda-a423-6a705c6dfe8e",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "6wZD45kidzNZT01e",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8",
+          "mode": "list",
+          "cachedResultName": "recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Job Positions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "description",
+              "lookupValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Value', `Skills are greater than and equal to 50% qualification`, 'string') }}"
+            },
+            {
+              "lookupColumn": "qualifications",
+              "lookupValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Value', `Skills are greater than and equal to 50% qualification`, 'string') }}"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        2020,
+        220
+      ],
+      "id": "4e8a052c-403d-48a5-a826-a1bd3b772d7c",
+      "name": "Job Positions1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Role: Act as a Professional Job Application Reviewer\nInstruction:\n\nReturn ONLY: \"Qualified\" or \"Not Qualified\"—no explanations, no extra text.\nEvaluation Process:\n\n    Check if the applied job position exists in the list of available jobs.\n\n    Compare the required skills for the job with the applicant's provided skills ({{ $json.skills }}).\n\n    If the applicant has at least 50% of the required skills, return \"Qualified\".\n\n    If the applicant has less than 50% of the required skills, return \"Not Qualified\".\n\nInput:\n\n    Applicant's Skills: {{ $json.skills }}\n\nOutput (Strict Format):\n\n    \"Qualified\" (if skills meet at least 50% of job requirements)\n\n    \"Not Qualified\" (if skills meet less than 50% of job requirements)\n\n⚠️ DO NOT return any explanations, reasoning, or additional text. Only output \"Qualified\" or \"Not Qualified\" exactly as required.\n\nExample Outputs:\n✅ Qualified\n✅ Not Qualified",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        940,
+        -220
+      ],
+      "id": "12df7ce1-3f46-44f1-83e7-42ece5313fca",
+      "name": "AI Agent: Qualification Control",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Role: Professional Job Application Reviewer\nApplicant Skills:\n{{ $json.skills }}\n\nRule:\n- Find a suitable jobs based from applicant skills (MUST most of the applicant skills)\n- Analyze the applicant’s skills and return the most relevant job positions (greater than or equal to 30% of applicant skills).\n- Return only the job positions\n- no extra details\n- No match position return \"No Jobs Available\"\n- If \"No Jobs Available\", suggest any suitable jobs for the applicant skills, do not add the \"No Jobs Available\" just the suitable job position available based from any job description and qualifications and return only the suitable jobs no extra details\n--------------------------------------------\nTest:\n\nInput:\nskills: Food preparation and cooking, knowledge of food safety and hygiene standards, kitchen organization and cleanliness, ability to follow recipes and meal plans, time management and multitasking, attention to detail, ability to work under pressure, teamwork and communication skills, inventory management, adaptability to dietary restrictions and special requests \nOutput:\njob_position: cafeteria-cook\n\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1820,
+        -40
+      ],
+      "id": "d29cb63c-6a33-41bc-b698-28be29f031ce",
+      "name": "AI Agent: Job Suggestion"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "69764afd-bd90-488e-a64f-c53a2f366f04",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        140
+      ],
+      "id": "a6e72537-c90b-42f7-9288-dc3654ca5751",
+      "name": "Webhook",
+      "webhookId": "69764afd-bd90-488e-a64f-c53a2f366f04"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        -180
+      ],
+      "id": "ab89c3ea-638e-4b4f-823d-0068ea960bfa",
+      "name": "Telegram Trigger",
+      "webhookId": "21feffd4-44c3-4153-9ec2-eeb98aad75c7",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "55a8751c-07c1-418f-a582-5e215f857607",
+              "name": "name",
+              "value": "={{ $json.Name }}",
+              "type": "string"
+            },
+            {
+              "id": "23d4f106-5838-45e9-b7b0-f16a53a0aff0",
+              "name": "skills",
+              "value": "={{ $json.Skills }}",
+              "type": "string"
+            },
+            {
+              "id": "179928c0-3cfa-4913-b671-3ba33ec65643",
+              "name": "email",
+              "value": "={{ $json.Email }}",
+              "type": "string"
+            },
+            {
+              "id": "154245c3-cd60-4196-9b66-6862eb69c093",
+              "name": "birthdate",
+              "value": "={{ $json.Birthdate }}",
+              "type": "string"
+            },
+            {
+              "id": "078423f2-69a0-43ee-bc0d-71827bbd31d8",
+              "name": "job_position",
+              "value": "={{ $json['Job Position'] }}",
+              "type": "string"
+            },
+            {
+              "id": "c9b6a6b2-0d83-46cd-8d78-a99c371da366",
+              "name": "from",
+              "value": "application_form",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -60,
+        -20
+      ],
+      "id": "a12aff92-f2ec-4416-8e28-a8743086ac87",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23bd67e3-620e-4544-9387-30e4d8af88e0",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "e0d60bc5-08c9-4a17-9c4b-dbecdbf1ff3d",
+              "name": "skills",
+              "value": "={{ $json.body.skills }}",
+              "type": "string"
+            },
+            {
+              "id": "ab46d51c-20cc-4668-b6c3-bdbc65653272",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "3ce1a249-20b4-455a-a23e-c6d539010390",
+              "name": "birthdate",
+              "value": "={{ $json.body.birthdate }}",
+              "type": "string"
+            },
+            {
+              "id": "f2e15f67-5303-4def-af0e-136652ebc097",
+              "name": "job_position",
+              "value": "={{ $json.body.job_position }}",
+              "type": "string"
+            },
+            {
+              "id": "e5351239-bfb8-4cc3-8133-15e857cb897c",
+              "name": "from",
+              "value": "web_hook",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -60,
+        140
+      ],
+      "id": "6c1b688e-d95f-43ee-b245-fb5125f609fb",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Hello, this is regarding your job application. Some details are missing—could you complete them? Thanks!\n\nREQUIRED DETAILS:\nName: \nEmail: \nBirthdate:\nJob Position: \nSkills:\n\nSAMPLE:\n\nName: Juan Dela Cruz\nEmail: juandelacruz@example.local\nBirthdate: 1995-06-15\nJob Position: php-developer\nSkills: PHP, Laravel, CodeIgniter, MySQL, PostgreSQL, REST API, SOAP API, Payment Gateway Integration, Debugging, Performance Optimization, HTML, CSS, JavaScript, React, Security (XSS, CSRF, SQL Injection prevention), Git (GitHub, GitLab, Bitbucket), Troubleshooting, API Integration, Collaboration with Frontend Developers",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        460,
+        -580
+      ],
+      "id": "23785b22-a316-4b9f-b3f0-3d6e54ca30ab",
+      "name": "Telegram",
+      "webhookId": "ddefc19d-e78e-4a9b-9c0b-1b6fe8851438",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bb5a179d-d1e7-47ba-8472-c06be0e4419a",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "89afe996-fd24-4b8f-a9ef-27b775ff2240",
+              "leftValue": "={{ $json.skills }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "fe8e8f6f-f0a0-49e6-ae21-71fd559f0200",
+              "leftValue": "={{ $json.birthdate }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "bb5574b4-f332-47bb-ba46-438609c17962",
+              "leftValue": "={{ $json.job_position }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "d999aae5-37b2-4e99-8970-b2362a5b2c9a",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -180
+      ],
+      "id": "6bf5b4aa-fb94-4750-bfc8-1e3f505217c6",
+      "name": "Check Job Application Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.message.text;\nconst lines = input.split(\"\\n\");\n// Define jsonObject as a dictionary of strings\nlet jsonObject = {\n  \"name\": \"\",\n  \"skills\": \"\",\n  \"email\": \"\",\n  \"birthdate\": \"\",\n  \"job_position\": \"\",\n  \"from\": \"telegram\"\n}\n\nlines.forEach(line => {\n  let [key, value] = line.split(\": \");\n  if (key && value) {\n    const keyName = key.trim().toLowerCase().replace(/ /g, \"_\");\n    jsonObject[keyName] = value.trim();\n  }\n});\n\nreturn [{ json: jsonObject }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -60,
+        -180
+      ],
+      "id": "62fa1318-7b56-4cd3-a235-c4b913d30188",
+      "name": "Parse Aplicants Data"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Hello, we will be reviewing your job application. Please check your email inbox for updates. Thanks",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        -360
+      ],
+      "id": "d83f0980-a9cb-4bd9-8995-f2436f45aa3d",
+      "name": "Telegram1",
+      "webhookId": "ddefc19d-e78e-4a9b-9c0b-1b6fe8851438",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2260,
+        -40
+      ],
+      "id": "90f1dd8c-23b9-4352-84bd-c57ce6f682a1",
+      "name": "Wait",
+      "webhookId": "97196885-198c-438f-b993-f3c1128536ec"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "AI Agent: Qualification Control",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected as Minor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Application Form": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Applicants Data": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent: Qualification Control",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Applicants Data1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rejected as Not Qualified",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Not Qualified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Job Positions": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent: Qualification Control",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qualified": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Not Qualified": {
+      "main": [
+        [
+          {
+            "node": "AI Agent: Job Suggestion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Applicants Data1": {
+      "main": [
+        [
+          {
+            "node": "Qualified",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rejected as Not Qualified": {
+      "main": [
+        []
+      ]
+    },
+    "Rejected as Minor": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent: Job Suggestion",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Job Positions1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent: Job Suggestion",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent: Qualification Control": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent: Job Suggestion": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Aplicants Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Applicants Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Applicants Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Job Application Data": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Applicants Data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Aplicants Data": {
+      "main": [
+        [
+          {
+            "node": "Check Job Application Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "00165734-feb1-450d-8ae9-527350dc9ecd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "255381db1de619c7e0a73254c569368a9cecc8c45a2276e2785531cfe8c99b34"
+  },
+  "id": "VkeyN4v9q4ZRdH9r",
+  "tags": [
+    {
+      "createdAt": "2025-03-26T01:29:48.812Z",
+      "updatedAt": "2025-03-26T01:29:48.812Z",
+      "id": "ehXnTxuxypnrENPI",
+      "name": "recruitment"
+    }
+  ]
+}

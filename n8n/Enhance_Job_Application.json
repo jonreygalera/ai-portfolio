@@ -1,0 +1,2303 @@
+{
+  "name": "Job Application",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.user_prompt }}",
+        "options": {
+          "systemMessage": "={{ $json.system_prompt }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1060,
+        -760
+      ],
+      "id": "6d9648a3-6220-43e1-b540-57b05ecffd98",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo-0125",
+          "mode": "list",
+          "cachedResultName": "gpt-3.5-turbo-0125"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        860,
+        -600
+      ],
+      "id": "96695fb5-9063-4df3-93f4-1b7e4caafb1c",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "6wZD45kidzNZT01e",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_id": "={{ $json.message.chat.id }}",
+            "full_name": "={{ $json.message.from.first_name }}"
+          },
+          "matchingColumns": [
+            "telegram_id"
+          ],
+          "schema": [
+            {
+              "id": "telegram_id",
+              "displayName": "telegram_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "full_name",
+              "displayName": "full_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_address",
+              "displayName": "email_address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "job_position",
+              "displayName": "job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "education",
+              "displayName": "education",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "certifications",
+              "displayName": "certifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "social_links",
+              "displayName": "social_links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "experience",
+              "displayName": "experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -2720,
+        -700
+      ],
+      "id": "c2a2a4bd-d025-44a1-a97d-05e4dae5a8f1",
+      "name": "telegram_hr_recruitment",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "0963dcfb-1343-46e2-8455-f3c0f24bad86"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "message_text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "86704840-c607-4e09-98d1-7ffd79d123d3",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.document }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "object",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "document"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1800,
+        -700
+      ],
+      "id": "11a46ca4-bb32-4db9-96a8-24b161d007c7",
+      "name": "telegram_switch",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Job Positions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "is_job_available",
+              "lookupValue": "=available"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        1420,
+        -420
+      ],
+      "id": "86d6aa7d-9387-42ae-bd49-5d77df57ced9",
+      "name": "job_positions",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('telegram_setting').item.json.unique_id }}",
+        "text": "={{ $json.output }}\n\nPlease consider taking an assessment by typing /assessment",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1600,
+        -760
+      ],
+      "id": "2768b96c-65f9-448e-86b4-9652bfc009e5",
+      "name": "Telegram4",
+      "webhookId": "e2a11714-8b60-4ded-b1dd-8b352302a56d",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $('telegram_hr_recruitment').item.json.email_address }}_resume",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "https://drive.google.com/drive/u/0/folders/1aJ9dcq-WvpAvCp3eWvhuQuw5Cn_TVYGh",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -2540,
+        640
+      ],
+      "id": "f0ceaf12-1262-4a1d-ab04-dd4d59eb0c74",
+      "name": "upload_resume",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "n1lvSsRVYhPK9flT",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('telegram_trigger').item.json.message.document.file_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -2860,
+        340
+      ],
+      "id": "23cdeed2-7446-4908-a371-cc886435b0f0",
+      "name": "get_document_telegram",
+      "webhookId": "e8a9fe11-0e68-41af-85f7-26d80cae955d",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-3.5-turbo-0125",
+          "mode": "list",
+          "cachedResultName": "gpt-3.5-turbo-0125"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2220,
+        700
+      ],
+      "id": "59b38e4c-5e97-45d3-8f27-4ae8dee15189",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "6wZD45kidzNZT01e",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"type\": \"object\",\n  \"description\": \"Schema for extracted resume data from a PDF\",\n  \"properties\": {\n    \"full_name\": {\n      \"type\": \"string\",\n      \"description\": \"The full name of the candidate as extracted from the resume.\"\n    },\n    \"job_position\": {\n      \"type\": \"string\",\n      \"description\": \"Candidate's job position.\"\n    },\n    \"email_address\": {\n      \"type\": \"string\",\n      \"format\": \"email\",\n      \"description\": \"Candidate's email address.\"\n    },\n    \"phone_number\": {\n      \"type\": \"string\",\n      \"description\": \"Candidate's phone number, including country code if available.\"\n    },\n    \"address\": {\n      \"type\": \"string\",\n      \"description\": \"Candidate's address as listed on the resume.\"\n    },\n    \"summary\": {\n      \"type\": \"string\",\n      \"description\": \"A brief summary of the candidate's experience and expertise.\"\n    },\n    \"experience\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of work experiences in the format: 'Job Title at Company (Start Date - End Date)'\"\n    },\n    \"education\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of educational background in the format: 'Degree from School (Graduation Year)'\"\n    },\n    \"skills\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of technical and soft skills.\"\n    },\n     \"language\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of known language.(default English)\"\n    },\n    \"certifications\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of certifications in the format: 'Certification (Issuer, Date)'\"\n    },\n    \"social_links\": {\n      \"type\": \"string\",\n      \"description\": \"Comma-separated list of social media or professional profile links (e.g., LinkedIn, GitHub, Portfolio).\"\n    }\n  },\n  \"required\": [\"full_name\", \"email_address\", \"phone_number\", \"language\"]\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        -2060,
+        340
+      ],
+      "id": "246d6ec5-e353-4c10-b942-b389e6f96a9e",
+      "name": "resume_extractor"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "61449880-7163-45ea-a5cd-c27824bc35ae",
+              "name": "full_name",
+              "value": "={{ $json.output.full_name }}",
+              "type": "string"
+            },
+            {
+              "id": "0f98fa6a-8c2b-4165-a293-a5d2b41d3c99",
+              "name": "email_address",
+              "value": "={{ $json.output.email_address }}",
+              "type": "string"
+            },
+            {
+              "id": "50528b75-ad06-42bb-9cf2-5613219e563e",
+              "name": "phone_number",
+              "value": "={{ $json.output.phone_number }}",
+              "type": "string"
+            },
+            {
+              "id": "65a1fb4e-3c9b-4274-8392-f1d1ae29e660",
+              "name": "job_position",
+              "value": "={{ $json.output.job_position }}",
+              "type": "string"
+            },
+            {
+              "id": "87bce479-8a83-4c02-abfd-f80d6883255d",
+              "name": "address",
+              "value": "={{ $json.output.address }}",
+              "type": "string"
+            },
+            {
+              "id": "dd839ae6-b150-40b5-a99a-5a0984bb3b97",
+              "name": "summary",
+              "value": "={{ $json.output.summary }}",
+              "type": "string"
+            },
+            {
+              "id": "4ca1eb15-64fd-46ad-a56a-2c071d89c7ea",
+              "name": "experience",
+              "value": "={{ $json.output.experience }}",
+              "type": "string"
+            },
+            {
+              "id": "6c03c558-133f-45d0-8f26-892970c94f6e",
+              "name": "education",
+              "value": "={{ $json.output.education }}",
+              "type": "string"
+            },
+            {
+              "id": "c603343e-92b3-4849-8431-91152906f683",
+              "name": "skills",
+              "value": "={{ $json.output.skills }}",
+              "type": "string"
+            },
+            {
+              "id": "8419c3cb-5e11-485c-b759-9dff4e6f04a3",
+              "name": "certifications",
+              "value": "={{ $json.output.certifications }}",
+              "type": "string"
+            },
+            {
+              "id": "9a3ee8d8-792f-45c1-b6ff-1389f819eff0",
+              "name": "social_links",
+              "value": "={{ $json.output.social_links }}",
+              "type": "string"
+            },
+            {
+              "id": "a4aedbb6-d7a1-4f0a-b4fd-5816c4c26c99",
+              "name": "language",
+              "value": "={{ $json.output.language }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1680,
+        340
+      ],
+      "id": "c6de8945-dc53-4dc2-aeed-db9773c1468c",
+      "name": "refine_extracted_data"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -2420,
+        340
+      ],
+      "id": "9848fbdc-fc7f-4c7f-9e2f-edc9df79f5db",
+      "name": "extract_from_file"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 807820119,
+          "mode": "list",
+          "cachedResultName": "Telegram Command",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=807820119"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1000,
+        -1140
+      ],
+      "id": "78ddab73-b99d-4532-9e48-e485e5eeec9f",
+      "name": "telegram_commands",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let commandMessage = \"\";\nfor (const item of $input.all()) {\n  commandMessage += `${item.json.command} - ${item.json.description} \\n`\n}\nreturn [{json: {message: commandMessage}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -680,
+        -1300
+      ],
+      "id": "276dc962-7f3c-42a0-aa85-67191a1cf199",
+      "name": "command_to_string"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": false
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3000,
+        -700
+      ],
+      "id": "ab89c3ea-638e-4b4f-823d-0068ea960bfa",
+      "name": "telegram_trigger",
+      "webhookId": "21feffd4-44c3-4153-9ec2-eeb98aad75c7",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=6694508344",
+        "text": "={{ $json.message }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -380,
+        -1380
+      ],
+      "id": "68b16f86-d030-4f5d-bc4b-9d3de276da52",
+      "name": "telegram_send_message_a",
+      "webhookId": "4694482d-1a0b-423f-b39f-929d6b3e24ee",
+      "credentials": {
+        "telegramApi": {
+          "id": "o2MD9jGe95TOeOvl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9f0fd1d7-198e-48ce-bfb6-91e8ac621134",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d3a5dc16-a6ac-42ab-ad99-0fb13c777a6a",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "/info (.+)/i",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "job_info "
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "/offer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2ee5b7b6-6169-4d51-86ec-d85594a43a8f"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "job_offer"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e138a64-93bd-468b-9627-54ac55a1ed50",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "/apply (.+)/i",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "apply_job"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8e8c8e26-c561-42f4-be85-0099975c31f2",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "/assessment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "assessment"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5359e0e2-2bdd-4093-b764-2d3505f3c35e",
+                    "leftValue": "={{ $('telegram_trigger').item.json.message.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "common_message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1440,
+        -780
+      ],
+      "id": "e0159e9c-bca8-4b3f-bb35-053e933ea1eb",
+      "name": "message_identifier",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "73163eee-252a-421c-a931-5b9654dd2a92",
+              "name": "user_prompt",
+              "value": "I am a Job Recruiter using Messaging APP\n\nIf jobs are available:\n\n    List the job positions just the Job Position name.\n\nIf no jobs are available:\n\n    Return: \"No available jobs right now.\"\n\nFor available jobs:\n\n    Apply with /apply <JOB POSITION>.\n\n    Learn more with /info <JOB POSITION>.",
+              "type": "string"
+            },
+            {
+              "id": "eef67c44-17e8-40db-bcea-cd4326b538bc",
+              "name": "system_prompt",
+              "value": "=I am a Job Recruiter using Messaging APP \nIf jobs are available:      \nList the job positions just the Job Position name.  \nIf no jobs are available:      \nReturn: \"No available jobs right now.\"  \nFor available jobs:      \nApply with /apply <JOB POSITION>.      \nLearn more with /info <JOB POSITION>.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -720,
+        -860
+      ],
+      "id": "613758d8-ddc0-41dd-895c-57dc024d33ee",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7d2125-2a5c-4636-b430-5a96e7dae2bf",
+              "name": "user_prompt",
+              "value": "=Could you give me the {{ $('telegram_trigger').item.json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "10ba3fda-681c-42d7-8dd6-e8d2b8f6e463",
+              "name": "system_prompt",
+              "value": "=I am a Job Recruiter, happy to assist you. I will provide only the information you request, and only if it’s available. If no specific information is available for the requested position, I will respond with that the position is not currently available and will provide no additional details. I will only give you {{ $('telegram_trigger').item.json.message.text }} if it is still available in our job offer. No other information will be provided",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -720,
+        -1000
+      ],
+      "id": "d5e1148c-a326-46e8-ab43-48758220fcb2",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7d2125-2a5c-4636-b430-5a96e7dae2bf",
+              "name": "user_prompt",
+              "value": "=I am interested in applying for the {{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }} position. Could you first check if it is still available?",
+              "type": "string"
+            },
+            {
+              "id": "10ba3fda-681c-42d7-8dd6-e8d2b8f6e463",
+              "name": "system_prompt",
+              "value": "=I am a Job Recruiter and checker of availability, happy to assist you. I will provide only the information you request, and only if it’s available. If no specific information is available for the requested position, I will respond with that the position is not currently available and will provide no additional details. I will only give you the exact {{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }} if it is still available in our job offer. No other information will be provided.\n\nIf the {{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }} is not in the current job offer, I will offer you some available jobs that are relevant from {{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }}.\n\nIf available, I will ask you to send your resume to evaluate it if it is qualified for the job you are applying for.",
+              "type": "string"
+            },
+            {
+              "id": "1683011e-584d-4583-909b-5d2eece0f51f",
+              "name": "applied_job_position",
+              "value": "={{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -700,
+        -640
+      ],
+      "id": "7a34bdd4-c299-4d04-ba04-f034fb768214",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_id": "={{ $('telegram_trigger').item.json.message.chat.id }}",
+            "applied_job_position": "={{ $json.applied_job_position }}"
+          },
+          "matchingColumns": [
+            "telegram_id"
+          ],
+          "schema": [
+            {
+              "id": "telegram_id",
+              "displayName": "telegram_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "full_name",
+              "displayName": "full_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_address",
+              "displayName": "email_address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "job_position",
+              "displayName": "job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "education",
+              "displayName": "education",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "certifications",
+              "displayName": "certifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "social_links",
+              "displayName": "social_links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "experience",
+              "displayName": "experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -480,
+        -780
+      ],
+      "id": "8b206b13-f966-4e1c-b87c-cb51eb41111a",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7d2125-2a5c-4636-b430-5a96e7dae2bf",
+              "name": "user_prompt",
+              "value": "=I am interested in applying for a job. Could you assess my qualifications before I apply",
+              "type": "string"
+            },
+            {
+              "id": "10ba3fda-681c-42d7-8dd6-e8d2b8f6e463",
+              "name": "system_prompt",
+              "value": "=As a recruiter, I can help assess your qualifications. Please share your resume with me, and I’ll review it to determine if you're a good fit for the role.",
+              "type": "string"
+            },
+            {
+              "id": "1683011e-584d-4583-909b-5d2eece0f51f",
+              "name": "applied_job_position",
+              "value": "={{ $('telegram_trigger').item.json.message.text.replace(\"/apply\", \"\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        -380
+      ],
+      "id": "d5a72d60-93da-4780-9fcb-8ccd362fb603",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_id": "={{ $('telegram_trigger').item.json.message.chat.id }}",
+            "applied_job_position": "none"
+          },
+          "matchingColumns": [
+            "telegram_id"
+          ],
+          "schema": [
+            {
+              "id": "telegram_id",
+              "displayName": "telegram_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "full_name",
+              "displayName": "full_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_address",
+              "displayName": "email_address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "job_position",
+              "displayName": "job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "education",
+              "displayName": "education",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "certifications",
+              "displayName": "certifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "social_links",
+              "displayName": "social_links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "experience",
+              "displayName": "experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -500,
+        -560
+      ],
+      "id": "a0af81e6-d64c-4edc-ae05-1fd0a80691bc",
+      "name": "Google Sheets2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b7d2125-2a5c-4636-b430-5a96e7dae2bf",
+              "name": "user_prompt",
+              "value": "={{ $('telegram_trigger').item.json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "10ba3fda-681c-42d7-8dd6-e8d2b8f6e463",
+              "name": "system_prompt",
+              "value": "=Hi there! I'm your job recruiter, happy to help you with your job search. Just let me know the job position you're interested in or feel free to share your resume, and I'll take a look at your qualifications before you apply.",
+              "type": "string"
+            },
+            {
+              "id": "1683011e-584d-4583-909b-5d2eece0f51f",
+              "name": "applied_job_position",
+              "value": "=",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        -200
+      ],
+      "id": "14bd2c8f-f3a7-448a-b107-9ef498338fe5",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "user_prompt"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1000,
+        -340
+      ],
+      "id": "72de5f1a-29a6-4287-93a9-3c81af9c1443",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Get here the details of the company",
+        "url": "https://nmsrecruitment.nmsapps.com/api/client-contents"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1260,
+        -340
+      ],
+      "id": "1faff0ca-fada-40d5-93e8-c52ba0c5b0db",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.from }}",
+                    "rightValue": "=telegram",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e07a47a0-a5bf-49ea-af43-f21d9b878fca"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "telegram"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2100,
+        -700
+      ],
+      "id": "9a66731c-96b6-4093-9e96-d2452bee8089",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c3c23238-bc14-4540-8e1a-bee763eaa589",
+              "name": "from",
+              "value": "telegram",
+              "type": "string"
+            },
+            {
+              "id": "9d815449-af05-4ed3-a0c5-bc04aa97db46",
+              "name": "unique_key",
+              "value": "telegram_id",
+              "type": "string"
+            },
+            {
+              "id": "e35bcc20-65e1-4249-83fa-c9463a97e1e7",
+              "name": "unique_id",
+              "value": "={{ $json.telegram_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2420,
+        -700
+      ],
+      "id": "66482e89-8ee2-498a-b25a-aab7c5df48ec",
+      "name": "telegram_setting"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bf24b991-2934-4b3e-a854-0ceb5c8727c6",
+              "leftValue": "={{ $json.applied_job_position }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -960,
+        340
+      ],
+      "id": "98c8fc50-942d-432c-98e4-ea490954b26d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b5f0cbb-e260-4cca-8946-d91880245dd6",
+              "name": "user_prompt",
+              "value": "=Hi,\n\nI hope you're doing well! My name is {{ $json.full_name }} and I’m reaching out to express my interest in any available positions at your company. If there are no positions currently available that match my profile, could you suggest some relevant roles based on my qualifications?\n\nHere’s a summary of my details:\n\n    Previous Job: {{ $json.job_position }}\n\n    Education: {{ $json.education }}\n\n    Skills: {{ $json.skills }}\n\n    Certifications: {{ $json.certifications }}\n\n    Experience: {{ $json.experience }}\n\n    Languages: {{ $json.language }}\n\nI would love the opportunity to discuss how I can contribute to your team. Please feel free to review my details and let me know if you'd like to continue the conversation.\n\nLooking forward to hearing from you!",
+              "type": "string"
+            },
+            {
+              "id": "335a493d-4c08-43b4-879c-7a10a869c33a",
+              "name": "system_prompt",
+              "value": "=As a seasoned Job Application Reviewer and Career Documents Specialist with over 10 years of experience, I provide clear, direct feedback—no sugar-coating.\n\nI’ll assess your qualifications quickly and tell you if you’re qualified for the job. If the role you applied for isn’t a fit or is unavailable, I’ll immediately suggest the most relevant jobs that match your skills. My approach is straightforward and efficient—no delays, no fluff—just the right opportunities based on your profile.\n\nI evaluate your qualifications based on a percentage. If you meet at least 80% of the required qualifications, I’ll reach out. If not, I’ll still recommend other roles or suggest opportunities from other companies that may be a better fit.\n\nYou won’t be left hanging. Fast, honest feedback is my priority. Here’s how you can manage your applications:\n\n    /apply [job offer] – Apply for available roles directly.\n\n    /info [job offer] – Get job details instantly.\n\nI’m focused on providing quick, skills-based recommendations to keep your job search moving forward with the best-fit opportunities—no guesswork, just the facts.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -680,
+        180
+      ],
+      "id": "dbf4035d-5c31-45a7-ac3c-9fdefbe6d010",
+      "name": "assessment_prompt"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99ceed97-2673-495b-93e0-d2047116fd43",
+              "name": "user_prompt",
+              "value": "=Hi,\n\nI hope this message finds you well! My name is {{ $('telegram_hr_recruitment').item.json.full_name }} and I'm writing to express my interest in the {{ $json.applied_job_position }} position at your company.\n\nSystem: Hello, you are applying for {{ $json.applied_job_position }}\n\nBelow is a summary of my qualifications for your review:\n\n    Previous Job: {{ $json.job_position }}\n\n    Education: {{ $json.education }}\n\n    Skills: {{ $json.skills }}\n\n    Certifications: {{ $json.certifications }}\n\n    Experience: {{ $json.experience }}\n\n    Languages: {{ $json.language }}\n\nI am eager to discuss how my skills and experience align with the needs of your team. Please feel free to review my details, and let me know if you'd like to arrange a conversation.\n\nI look forward to your response.",
+              "type": "string"
+            },
+            {
+              "id": "58d1a741-c51b-4b97-802d-2817607b7623",
+              "name": "system_prompt",
+              "value": "=As a Professional Job Application Reviewer and Career Documents Specialist with over 10 years of experience, I provide honest, straightforward feedback—no sugar-coating.\n\nI’ve assessed your qualifications for the job you applied for. If the role is unavailable or doesn’t align with your skills, I’ll promptly suggest relevant opportunities based on your profile.\n\nSince you've already submitted your resume and meet the qualifications, I'll be reaching out to you soon with the next steps.\n\nIf you don't meet the qualifications for the job you applied for, I'll suggest other available roles that may be a better fit for you.\n\nOnce you’re qualified for a role, I will provide the interview details, including the time, date, and a link to the interview.\n\nHere’s how you can manage your applications:\n\n/apply [job offer] – Apply directly for available roles.\n\n/info [job offer] – Get instant job details.\n\nI’m focused on providing fast, actionable feedback and ensuring you’re connected with the best opportunities. Expect to hear from me soon with the interview details, including the time and link",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -660,
+        460
+      ],
+      "id": "9ba65c9c-615c-46d7-ad50-b17da1963e02",
+      "name": "application_prompt"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=1818490173"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "telegram_id",
+              "lookupValue": "={{ $('telegram_switch').item.json.unique_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1180,
+        340
+      ],
+      "id": "7426cc9f-8b4a-4a2e-bfce-af532b4187cd",
+      "name": "telegram_user",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1818490173,
+          "mode": "list",
+          "cachedResultName": "Applicants",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OwRmih_c9xWDxDRyKPPGW1hYs5Hj9CeqwO9DRgz9IC8/edit#gid=1818490173"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "full_name": "={{ $json.full_name }}",
+            "email_address": "={{ $json.email_address }}",
+            "phone_number": "={{ $json.phone_number }}",
+            "job_position": "={{ $json.job_position }}",
+            "education": "={{ $json.education }}",
+            "certifications": "={{ $json.certifications }}",
+            "social_links": "={{ $json.social_links }}",
+            "experience": "={{ $json.experience }}",
+            "skills": "={{ $json.skills }}",
+            "language": "={{ $json.language }}",
+            "telegram_id": "={{ $('telegram_switch').item.json.unique_id }}"
+          },
+          "matchingColumns": [
+            "telegram_id"
+          ],
+          "schema": [
+            {
+              "id": "telegram_id",
+              "displayName": "telegram_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "full_name",
+              "displayName": "full_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_address",
+              "displayName": "email_address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "job_position",
+              "displayName": "job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "education",
+              "displayName": "education",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "skills",
+              "displayName": "skills",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "certifications",
+              "displayName": "certifications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "social_links",
+              "displayName": "social_links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_at",
+              "displayName": "applied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "birthdate",
+              "displayName": "birthdate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "experience",
+              "displayName": "experience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "applied_job_position",
+              "displayName": "applied_job_position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "language",
+              "displayName": "language",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "application_status",
+              "displayName": "application_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1420,
+        340
+      ],
+      "id": "12df0821-30ab-485d-960f-5e93cdaddc72",
+      "name": "telegram_hr_recruitment1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ",
+          "mode": "list",
+          "cachedResultName": "hr_recruitment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 117692316,
+          "mode": "list",
+          "cachedResultName": "Interview Link",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DfkQoWZ3lU5X5sPNElVzibGN5yMv8Zuw2w0mgh2trWQ/edit#gid=117692316"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "available",
+              "lookupValue": "available"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        1520,
+        -540
+      ],
+      "id": "8cfec481-da37-47b7-8cfa-e87b8fa6d726",
+      "name": "interview_link",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YhNqxZjAYDjSrliS",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_hr_recruitment": {
+      "main": [
+        [
+          {
+            "node": "telegram_setting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_switch": {
+      "main": [
+        [
+          {
+            "node": "message_identifier",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "get_document_telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "job_positions": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Telegram4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "upload_resume": {
+      "main": [
+        []
+      ]
+    },
+    "get_document_telegram": {
+      "main": [
+        [
+          {
+            "node": "upload_resume",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "extract_from_file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "resume_extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "resume_extractor": {
+      "main": [
+        [
+          {
+            "node": "refine_extracted_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "refine_extracted_data": {
+      "main": [
+        [
+          {
+            "node": "telegram_hr_recruitment1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract_from_file": {
+      "main": [
+        [
+          {
+            "node": "resume_extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_commands": {
+      "main": [
+        [
+          {
+            "node": "command_to_string",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "command_to_string": {
+      "main": [
+        [
+          {
+            "node": "telegram_send_message_a",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_trigger": {
+      "main": [
+        [
+          {
+            "node": "telegram_hr_recruitment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "message_identifier": {
+      "main": [
+        [
+          {
+            "node": "telegram_commands",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets2": {
+      "main": [
+        []
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "telegram_switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_setting": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "assessment_prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "application_prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_user": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "telegram_hr_recruitment1": {
+      "main": [
+        [
+          {
+            "node": "telegram_user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "assessment_prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "application_prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "interview_link": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0f43888d-90c6-4bd7-a8b5-6fd60829cd92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "255381db1de619c7e0a73254c569368a9cecc8c45a2276e2785531cfe8c99b34"
+  },
+  "id": "VkeyN4v9q4ZRdH9r",
+  "tags": [
+    {
+      "createdAt": "2025-03-26T01:29:48.812Z",
+      "updatedAt": "2025-03-26T01:29:48.812Z",
+      "id": "ehXnTxuxypnrENPI",
+      "name": "recruitment"
+    }
+  ]
+}
